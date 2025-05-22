@@ -8,11 +8,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted 
+    runs-on: self-hosted  # Your EC2 runner
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Creating .env file
+        run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Pull latest Docker image
         run: docker pull jackson216/investcalc:latest
