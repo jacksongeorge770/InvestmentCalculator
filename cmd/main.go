@@ -29,9 +29,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	defer db.Close() // Ensure connection is closed on exit
+	defer db.Close()
 
-	// Initialize storage (ping and migrations)
 	initStorage(db)
 
 	// Start API server
