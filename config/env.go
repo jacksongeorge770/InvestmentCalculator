@@ -24,7 +24,7 @@ func initConfig() Config {
 	godotenv.Load()
 	return Config{
 		PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
-		Port:       getEnv("PORT", "8080"),
+		Port:       getEnv("PORT", ":8080"),
 		DBUser:     getEnv("DB_USER", "admin"),
 		DBPassword: getEnv("DB_PASSWORD", ""),
 		DBPort:     getEnv("DB_PORT", "3306"),
