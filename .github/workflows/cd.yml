@@ -8,17 +8,20 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted  # EC2 instance must be registered as a self-hosted runner
+    runs-on: self-hosted 
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Pull latest image from Docker Hub
+      - name: Pull latest Docker image
         run: docker pull jackson216/investcalc:latest
 
-      - name: Shut down old containers
+      - name: Stop and remove old containers
         run: docker-compose down
 
       - name: Start updated containers
         run: docker-compose up -d --remove-orphans
+
+      - name: Show running containers (debug)
+        run: docker ps
