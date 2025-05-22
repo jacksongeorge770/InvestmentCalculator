@@ -8,23 +8,29 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted  # Your EC2 runner
+    runs-on: self-hosted  # Your EC2 GitHub Actions runner
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Creating .env file
+      - name: Create .env file
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Pull latest Docker image
         run: docker pull jackson216/investcalc:latest
 
-      - name: Stop and remove old containers
-        run: docker-compose down
+      - name: Stop and remove old container
+        run: |
+          docker rm -f investcalc || true
 
-      - name: Start updated containers
-        run: docker-compose up -d --remove-orphans
+      - name: Run updated container
+        run: |
+          docker run -d \
+            --name investcalc \
+            -p 8080:8080 \
+            --env-file .env \
+            jackson216/investcalc:latest
 
       - name: Show running containers (debug)
         run: docker ps
