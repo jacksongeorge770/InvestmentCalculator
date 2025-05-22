@@ -23,11 +23,6 @@ func main() {
 		AllowNativePasswords: true,
 		ParseTime:            true,
 	}
-	log.Printf("DB_USER=%s", config.Envs.DBUser)
-	log.Printf("DB_HOST=%s", config.Envs.DBAddress)
-	log.Printf("DB_PORT=%s", config.Envs.DBPort)
-	log.Printf("DB_NAME=%s", config.Envs.DBName)
-	log.Println("DSN: ", cfg.FormatDSN())
 
 	// Connect to RDS
 	db, err := db.MysqlStorage(cfg)
@@ -44,6 +39,7 @@ func main() {
 	if err := server.Run(); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
+
 }
 func initStorage(db *sql.DB) {
 	err := db.Ping()
