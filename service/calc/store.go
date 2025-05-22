@@ -14,6 +14,7 @@ func NewStore(db *sql.DB) *Store {
 	return &Store{db: db}
 }
 
+// save it to database
 func (s *Store) SaveCalculation(calc types.Calculation) error {
 	_, err := s.db.Exec(
 		"INSERT INTO calculations (user_id, principal, rate, compounds_per_year, years, result, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -21,24 +22,3 @@ func (s *Store) SaveCalculation(calc types.Calculation) error {
 	)
 	return err
 }
-
-// func (s *Store) GetCalculationsByUserID(userID int) ([]types.Calculation, error) {
-// 	rows, err := s.db.Query("SELECT * FROM calculations WHERE user_id = ?", userID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-
-// 	var calcs []types.Calculation
-// 	for rows.Next() {
-// 		var c types.Calculation
-// 		if err := rows.Scan(&c.ID, &c.UserID, &c.Principal, &c.Rate, &c.CompoundsPerYear, &c.Years, &c.Result, &c.CreatedAt); err != nil {
-// 			return nil, err
-// 		}
-// 		calcs = append(calcs, c)
-// 	}
-// 	if err := rows.Err(); err != nil {
-// 		return nil, err
-// 	}
-// 	return calcs, nil
-// }
