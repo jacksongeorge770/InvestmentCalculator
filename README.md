@@ -54,3 +54,27 @@ The Investment Calculator App is a web application that calculates compound inte
 
 ---
 
+## 🐦 Goose Database Migration
+
+We use **Goose** for managing database schema migrations.
+
+### Common commands
+
+- **Create a new migration:**
+
+```bash
+goose create add_users_table sql
+🛠️ Makefile Commands
+We use a Makefile to simplify running common tasks:
+
+Run the application:
+
+
+make run
+
+Migrate the database up:
+make migrate-up
+
+
+Rollback the last migration:
+make migrate-down
