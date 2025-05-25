@@ -2,6 +2,9 @@ Overview
 
 The Investment Calculator App is a web application that calculates compound interest based on user inputs (principal, interest rate, compounds per year, and years). It features a Golang backend serving a REST API (/api/v1/calculate) and a static HTML/CSS/JavaScript front-end with a form and Chart.js visualization. The backend connects to an AWS RDS MySQL database for storing calculations, uses Goose for migrations, and is deployed as a Docker container on AWS EC2 instances behind an Application Load Balancer (ALB). Infrastructure is provisioned using Terraform.
 
+## 🖼️ Architecture Diagram
+
+![Architecture](./assets/calclulatorApp.drawio.png)
 
 ## 📦 Technologies Used
 
