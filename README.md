@@ -81,3 +81,6 @@ make migrate-up
 
 Rollback the last migration:
 make migrate-down
+
+
+- **Observibilty**
