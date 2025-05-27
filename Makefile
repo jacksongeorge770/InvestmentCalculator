@@ -19,3 +19,7 @@ migrate-up:
 migrate-down:
 	@echo "Running migration down..."
 	@go run cmd/migrate/main.go down
+
+migrate:
+	@echo "Running migration..."
+	@goose -dir cmd/migrate/migrations mysql://${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}?parseTime=true up

@@ -30,7 +30,8 @@ jobs:
             --name investcalc \
             -p 8080:8080 \
             --env-file .env \
+            --label com.datadoghq.ad.logs='[{"source":"go", "service":"investment-app"}]' \
             jackson216/investcalc:latest
-
+            
       - name: Show running containers (debug)
         run: docker ps
