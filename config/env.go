@@ -29,7 +29,7 @@ func initConfig() Config {
 		DBPassword: getEnv("DB_PASSWORD", ""),
 		DBPort:     getEnv("DB_PORT", "3306"),
 		DBAddress:  getEnv("DB_HOST", ""),
-		DBName:     getEnv("DB_NAME", "investcalc"),
+		DBName:     getEnv("DB_NAME", "database-1"),
 		// JWTexpire:  getEnvINT("JWTEXP", 3600*24*7),
 		// JWTSecret:  getEnv("JWT_SECRET", ""),
 	}
