@@ -21,4 +21,4 @@ func (s *Store) SaveCalculation(calc types.Calculation) error {
 		calc.UserID, calc.Principal, calc.Rate, calc.CompoundsPerYear, calc.Years, calc.Result, calc.CreatedAt,
 	)
 	return err
-}
+} //
