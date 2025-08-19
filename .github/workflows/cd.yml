@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted  # Your EC2 GitHub Actions runner
+    runs-on: self-hosted  # Your EC2 runner
 
     steps:
       - name: Checkout repository
@@ -17,12 +17,21 @@ jobs:
       - name: Create .env file
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
+      - name: Ensure Docker is running
+        run: |
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          docker --version
+
       - name: Pull latest Docker image
-        run: docker pull jackson216/investcalc:latest
+        run: |
+          docker pull jackson216/investcalc:latest
 
       - name: Stop and remove old container
         run: |
-          docker rm -f investcalc || true
+          if [ $(docker ps -a -q -f name=investcalc) ]; then
+            docker rm -f investcalc
+          fi
 
       - name: Run updated container
         run: |
@@ -30,8 +39,12 @@ jobs:
             --name investcalc \
             -p 8080:8080 \
             --env-file .env \
-            --label com.datadoghq.ad.logs='[{"source":"go", "service":"investment-app"}]' \
             jackson216/investcalc:latest
-            
-      - name: Show running containers (debug)
-        run: docker ps
+
+      - name: Show running containers
+        run: docker ps -a
+
+      - name: Test container health
+        run: |
+          sleep 5
+          curl -f http://localhost:8080/ || echo "Container not responding"
